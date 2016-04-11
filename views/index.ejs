@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>油运宝管理后台</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/javascript/angularjs/angular.js"></script>
+    <script type="text/javascript" src="/javascript/angularjs/baidumap.js"></script>
+    <script type="text/javascript" src="/javascript/angularjs/socket.js"></script>
+    <script type="text/javascript" src="/javascript/angularjs/angular-jwt.js"></script>
+    <script type="text/javascript" src="/javascript/angularjs/ui-bootstrap-tpls-0.13.0.js"></script>
+    <script type="text/javascript" src="/javascript/angularjs/ui-router-tabs.js"></script>
+    <script type="text/javascript" src="/javascript/angularjs/angular-ui-router.js"></script>
+    <script type="text/javascript" src="/javascript/angularjs/ng-file-upload.js"></script>
+    <script type="text/javascript" src="/javascript/module/app.js"></script>
+    <script type="text/javascript" src="/javascript/module/tabs.js"></script>
+    <script type="text/javascript" src="/javascript/module/login.js"></script>
+    <script type="text/javascript" src="/javascript/module/consignor.js"></script>
+    <script type="text/javascript" src="/javascript/module/order.js"></script>
+    <script type="text/javascript" src="/javascript/module/scrollImage.js"></script>
+    <script type="text/javascript" src="/javascript/module/cargoo.js"></script>
+    <script type="text/javascript" src="/javascript/module/consignee.js"></script>
+    <script type="text/javascript" src="/javascript/module/recommand.js"></script>
+    <script type="text/javascript" src="/javascript/module/user.js"></script>
+    <script type="text/javascript" src="/javascript/module/orderReport.js"></script>
+    <script type="text/javascript" src="/javascript/module/message.js"></script>
+    <script type="text/javascript" src="/javascript/module/import.js"></script>
+    <script type="text/javascript" src="/javascript/module/upload.js"></script>
+    <script type="text/javascript" src="/javascript/module/question.js"></script>
+    <script type="text/javascript" src="/javascript/module/password.js"></script>
+    <script type="text/javascript" src="/javascript/module/filter.js"></script>
+    <script type="text/javascript" src="/javascript/module/socketModule.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4GRNYuPBzgP3GNrwUqekO9p0"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.default.css">
+    <link rel="shortcut icon" href="http://localhost:3000/favicon.ico">
+</head>
+
+<body ng-app="app">
+    <header>
+        <a href="#" class="logo">
+            <img src="icon-fav.png" width="40" height="40"> 油运宝管理系统
+        </a>
+    </header>
+    <div ui-view class="box"></div>
+    <footer class="footerwrapper">
+        <div class="text-center">
+            © 1998 - 2015 ChemChina Petrochemical Co.，Ltd
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<div class="contentpanel">
+    <div class="panel-body">
+        <form ng-submit="search()" class="form-inline" name="searchForm">
+            <div class="form-group">
+                <select name="activate" ng-model="option.activate">
+                    <option value="">全部状态</option>
+                    <option value="0">停用</option>
+                    <option value="1">使用中</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="请输入您要查找的手机号" type="text" name="mobile" ng-model="option.mobile" />
+            </div>
+            <input class="btn btn-primary btn-xs" type="submit" value="搜索" />
+        </form>
+    </div>
+    <table class="table table-bordered tab-rows">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>手机号</th>
+                <th>姓名</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td>{{$index+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.detail_name}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="panel-footer">
+        <pagination total-items="total" items-per-page="15" max-size="7" ng-model="currentPage" ng-change="search()"></pagination>
+    </div>
+</div>

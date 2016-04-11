@@ -1,0 +1,115 @@
+<div class="contentpanel">
+    <div class="panel-body cargoo_d">
+        <a class="btn btn-success btn-sm" href="#/tabs/cargooAdd">添加</a>
+        <tabset class="mt20">
+            <tab heading="汽油">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>货物名称</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in fuel">
+                            <td>
+                                <a href="/#/tabs/cargooDetail/{{item.id}}">
+                                    {{item.name}}
+                                </a>
+                            </td>
+                            <td>{{item.activate|activateFilter}}</td>
+                            <td>
+                                <a class="text-info" ng-click="changeState(item)">{{item.activate|stateButtonFilter}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tab>
+            <tab heading="柴油">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>货物名称</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in oil">
+                            <td>
+                                <a href="/#/tabs/cargooDetail/{{item.id}}">
+                                    {{item.name}}
+                                </a>
+                            </td>
+                            <td>{{item.activate|activateFilter}}</td>
+                            <td>
+                                <a class="text-info" ng-click="changeState(item)">{{item.activate|stateButtonFilter}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tab>
+            <tab heading="化工品">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>货物名称</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in chemistry">
+                            <td>
+                                <a href="/#/tabs/cargooDetail/{{item.id}}">
+                                {{item.name}}
+                                </a>
+                            </td>
+                            <td>{{item.activate|activateFilter}}</td>
+                            <td>
+                                <a class="text-info" ng-click="changeState(item)">{{item.activate|stateButtonFilter}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tab>
+            <tab heading="其他">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>货物名称</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in others">
+                            <td>
+                                <a href="/#/tabs/cargooDetail/{{item.id}}">
+                                {{item.name}}
+                                </a>
+                            </td>
+                            <td>{{item.activate|activateFilter}}</td>
+                            <td>
+                                <a class="text-info" ng-click="changeState(item)">{{item.activate|stateButtonFilter}}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tab>
+        </tabset>
+    </div>
+</div>
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        是否冻结/解冻
+    </div>
+    <div class="modal-body">
+        {{item.name}}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

@@ -1,0 +1,79 @@
+<div class="contentpanel">
+    <div class="panel-body">
+        <form ng-submit="search()" class="form-inline" name="searchForm">
+            <div class="form-group">
+                <select name="activate" ng-model="option.activate">
+                    <option value="">全部状态</option>
+                    <option value="0">停用</option>
+                    <option value="1">使用中</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="请输入您要查找的车牌号" type="text" name="licence" ng-model="option.licence" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="请输入您要查找的手机号" type="text" name="mobile" ng-model="option.mobile" />
+            </div>
+            <input class="btn btn-primary btn-xs" type="submit" value="搜索" />
+        </form>
+    </div>
+    <table class="table table-bordered tab-rows">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>手机号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>身份证</th>
+                <th>公司名称</th>
+                <th>车牌号</th>
+                <th>车型</th>
+                <th>车长/米</th>
+                <th>车重/吨</th>
+                <th>状态</th>
+                <th>注册日期</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td>{{$index+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.detail_name}}</td>
+                <td>{{item.gender| genderFilter}}</td>
+                <td>{{item.identified_number}}</td>
+                <td>
+                    <span>{{item.companyName1 | companyNameFilter}}</span>
+                    <span>{{item.companyName2 | companyNameFilter}}</span>
+                    <span>{{item.companyName3 | companyNameFilter}}</span>
+                </td>
+                <td>{{item.license}}</td>
+                <td>{{item.vehicle_type}}</td>
+                <td>{{item.vehicle_lenght}}</td>
+                <td>{{item.vehicle_width}}</td>
+                <td>{{item.activate|activateFilter}}</td>
+                <td>{{item.created_time}}</td>
+                <td>
+                    <a class="text-info" ng-click="changeState(item)">
+                        {{item.activate|stateButtonFilter}}
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="panel-footer">
+        <pagination total-items="total" items-per-page="15" max-size="7" ng-model="currentPage" ng-change="search()"></pagination>
+    </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            是否冻结/解冻
+        </div>
+        <div class="modal-body">
+            {{item.name}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>

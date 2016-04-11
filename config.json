@@ -1,0 +1,4 @@
+{
+    "key": "zhonghuakey",
+    "webService": "http://localhost:3000/proxy"
+}

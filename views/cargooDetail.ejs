@@ -1,0 +1,31 @@
+<div class="contentpanel">
+    <div class="panel-body messages_box">
+        <form class="form-horizontal form-bordered" name="cargooForm" ng-submit="submit()">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">货物分类</label>
+                <div class="col-sm-2">
+                    <select name="category" ng-model="item.category" required>
+                        <option value="1">汽油</option>
+                        <option value="2">柴油</option>
+                        <option value="3">化工品</option>
+                        <option value="4">其他</option>
+                    </select>
+                    <span ng-show="cargooForm.category.$error.required" class="error">请输入货物分类</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">货物名称</label>
+                <div class="col-sm-2 w180 ml0">
+                    <input type="text" class="form-control" ng-required="true" ng-model="item.name" required ng-maxLength="15" name="cargooName">
+                    <span ng-show="cargooForm.cargooName.$error.maxlength">超过最大长度</span>
+                </div>
+            </div>
+            <div class="col-sm-2 mt20 ml100">
+                <input type="submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div class="upload-modal">
+    <alert ng-repeat="alert in alerts" dismiss-on-timeout="1000" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>

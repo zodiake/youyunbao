@@ -1,0 +1,38 @@
+<div class="contentpanel">
+    <table class="table table-bordered files_tab">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>标题</th>
+                <!--
+                <th>超链接</th>
+                -->
+                <th>最后修改日期</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td>{{$index+1}}</td>
+                <td>
+                    <img style="width:100px;height:100px" src='{{item.image_url}}' />
+                </td>
+                <!--
+                <td>
+                    <input type="text" ng-model="item.image_href">
+                </td>
+                -->
+                <td>{{item.updated_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td>
+                    <span id="uploadImg" class="btn btn-success btn-xs">
+                        <input type='file' file-upload='upload' id='{{item.id}}' index='{{$index}}' />
+                        <a href="#">选择文件</a>
+                    </span>
+                    <!--
+                    <button class="btn btn-success btn-xs" ng-click="update(item)">click</button>
+                    -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

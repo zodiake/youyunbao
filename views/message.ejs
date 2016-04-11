@@ -1,0 +1,26 @@
+<div class="contentpanel">
+    <div class="panel-body messages_box">
+        <form class="form-horizontal form-bordered" ng-submit="submit()" name="pushForm">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">推送对象：</label>
+                <div class="col-sm-2">
+                    <select name='type' ng-model="message.type">
+                        <option value='consignee'>司机</option>
+                        <option value='consignor'>货主</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">内容：</label>
+                <div class="col-sm-4">
+                    <textarea ng-model="message.content" name="content" required ng-maxLength=58></textarea>
+                    <span ng-show="pushForm.content.$error.required" class="error">请输入内容</span>
+                    <span ng-show="pushForm.content.$error.maxlength" class="error">最多58个字</span>
+                </div>
+            </div>
+            <div class="col-sm-2 text-right">
+                <button class="btn btn-primary">提交</button>
+            </div>
+        </form>
+    </div>
+</div>

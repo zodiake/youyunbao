@@ -1,0 +1,41 @@
+{
+  "name": "zhonghuaApp",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "amqp": "^0.2.4",
+    "amqplib": "^0.3.2",
+    "body-parser": "^1.12.4",
+    "cookie-parser": "^1.3.5",
+    "csv": "^0.4.5",
+    "debug": "~2.2.0",
+    "ejs": "^2.3.3",
+    "express": "~4.12.4",
+    "express-jwt": "3.0.1",
+    "forever-monitor": "^1.7.0",
+    "jade": "~1.9.2",
+    "jpush-sdk": "^3.2.1",
+    "jsonwebtoken": "5.0.2",
+    "lodash": "^3.9.3",
+    "moment": "^2.10.6",
+    "morgan": "~1.5.3",
+    "multer": "^0.1.8",
+    "mysql": "^2.7.0",
+    "q": "^1.4.1",
+    "request": "^2.58.0",
+    "serve-favicon": "~2.2.1",
+    "soap": "^0.9.1",
+    "socket.io": "^1.3.6",
+    "squel": "^4.0.0",
+    "winston": "^1.0.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-express": "^1.4.1",
+    "soap": "^0.9.1"
+  }
+}

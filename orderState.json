@@ -1,0 +1,10 @@
+{
+    "dispatch": "待分配",
+    "confirm": "待确认",
+    "transport": "运送中",
+    "arrive": "已送达",
+    "appraise": "已评价",
+    "refuse": "已拒绝",
+    "created": "创建",
+    "closed":"已关闭"
+}

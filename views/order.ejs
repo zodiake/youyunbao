@@ -1,0 +1,78 @@
+<div class="contentpanel">
+    <div class="panel-body">
+        <form class="form-inline" name="searchForm" ng-submit="search()">
+            <div class="form-group">
+                <select name="state" ng-model="option.state">
+                    <option value="">全部状态</option>
+                    <option value="dispatch">待分配</option>
+                    <option value="confirm">待确认</option>
+                    <option value="transport">运送中</option>
+                    <option value="arrive">已送达</option>
+                    <option value="appraise">已评价</option>
+                </select>
+            </div>
+            <div class="form-group">
+                运单生成
+                <input class="form-control" name="beginTime" ng-model="option.beginTime" placeholder="开始时间" type="date"> ~
+                <input class="form-control" name="endTime" ng-model="option.endTime" placeholder="结束时间" type="date">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="orderNumber" ng-model="option.orderNumber" placeholder="请输入您要查找的运单号" type="text" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="consignor" ng-model="option.consignor" placeholder="请输入您要查找的货主手机号" type="text" />
+            </div>
+            <div class="form-group" ng-show="typeShow">
+                <input class="form-control" name="type" ng-model="option.type" placeholder="工厂编号" type="text" />
+            </div>
+            <div class="form-group">
+                <select name="batch" ng-model="option.batch">
+                    <option value="" selected>全部</option>
+                    <option value="mq">来自ERP</option>
+                    <option value="app" ng-show="typeShow">来自APP</option>
+                    <option value="batch">批量导入</option>
+                </select>
+            </div>
+            <input class="btn btn-primary btn-xs" type="submit" value="搜索" />
+            <a class="btn btn-primary btn-xs" ng-click="export()" href="/export/orders?state={{option.state}}&beginTime={{option.beginTime}}&endTime={{option.endTIme}}&consignor={{option.consignor}}&orderNumber={{option.orderNumber}}" ng-show="canDownload">导出</a>
+        </form>
+    </div>
+    <div>
+        总数：{{total}}
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>运单号</th>
+                <th>司机手机号</th>
+                <th>司机姓名</th>
+                <th>货主手机</th>
+                <th>公司名称</th>
+                <th>货物名称</th>
+                <th>货物数量/吨</th>
+                <th>状态</th>
+                <th>生成日期</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td>{{$index+1}}</td>
+                <td>{{item.order_number}}</td>
+                <td>{{item.consignee}}</td>
+                <td>{{item.consignee_name}}</td>
+                <td>{{item.consignor}}</td>
+                <td>{{item.company_name}}</td>
+                <td>{{item.cargoo_name}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.current_state}}</td>
+                <td>{{item.created_time}}</td>
+                <td><a href="#/tabs/order/{{item.id}}" class="btn btn-primary btn-xs">查看</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="panel-footer">
+        <pagination total-items="total" items-per-page="15" max-size="7" ng-model="currentPage" ng-change="search()"></pagination>
+    </div>
+</div>

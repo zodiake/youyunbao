@@ -1,0 +1,46 @@
+<div class="contentpanel">
+    <div class="panel-body">
+        <form class="form-inline files_tab" name="searchForm" ng-submit="search()">
+            <span id="uploadImg" class="btn btn-success btn-xs padd">
+                <input class="btn btn-success btn-sm" type="file" accept=".csv" file-upload="upload">
+                <a href="#">选择文件</a>
+            </span>
+            <a class="btn btn-success btn-sm" ng-click="beginImport()">导入</a>
+            <a class="btn btn-success btn-sm" ng-click="clear()">清除</a>
+            <a class="btn btn-success btn-sm" href="/export/template">模板下载</a>
+        </form>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>货主手机号</th>
+                <th>司机手机号</th>
+                <th>司机姓名</th>
+                <th>货物分类</th>
+                <th>货物名称</th>
+                <th>始发地</th>
+                <th>目的地</th>
+                <th>货物数量/吨</th>
+                <th>错误原因</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in fails">
+                <td>{{item.row}}</td>
+                <td>{{item.consignor}}</td>
+                <td>{{item.consignee}}</td>
+                <td>{{item.consignee_name}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.cargoo_name}}</td>
+                <td>{{item.origin}}</td>
+                <td>{{item.destination}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.message}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="upload-modal">
+        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    </div>
+</div>
