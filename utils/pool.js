@@ -5,9 +5,9 @@ var q = require('q');
 var _ = require('lodash');
 var pool = mysql.createPool({
     connectionLimit: 10,
-    host: 'localhost',
+    host:'192.168.1.137',
     user: 'root',
-    password: '1',
+    password: '1234',
     database: 'zh',
     dateStrings: true,
     port: '3307',

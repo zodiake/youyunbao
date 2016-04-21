@@ -98,9 +98,9 @@ router.post('/forget', function (req, res, next) {
         error;
     if (captcha == forget[mobile]) {
         userService.updatePwdByName({
-            name: mobile,
-            password: cryptoPwd(password)
-        })
+                name: mobile,
+                password: cryptoPwd(password)
+            })
             .then(function (data) {
                 delete forget[mobile];
                 res.json({
@@ -125,6 +125,7 @@ router.post('/signup', function (req, res, next) {
         password = req.body.password,
         captcha = req.body.captcha,
         type = user_type[req.body.type],
+        code = req.body.code,
         error;
 
     if (!user_mobile[name] || captcha != user_mobile[name]) {
@@ -136,10 +137,13 @@ router.post('/signup', function (req, res, next) {
         return next(error);
     }
 
+
+
     userService.save({
         name: name,
         password: cryptoPwd(password),
-        authority: type
+        authority: type,
+        code: code
     }).then(function (result) {
         return userDetailService
             .save({
@@ -324,8 +328,8 @@ router.post('/detail',
                     status: 'success'
                 });
             }).catch(function (err) {
-                return next(err);
-            });
+            return next(err);
+        });
     });
 
 router.post('/portrait', verify, fileMulter, function (req, res, next) {

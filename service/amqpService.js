@@ -40,7 +40,7 @@ connection.on('ready', function () {
                     quantity: message.quantity,
                     type: message.type,
                     app_or_out: 0,
-                    current_state: orderState.dispatch
+                    current_state: orderState.confirm
                 };
                 categoryService
                     .findByName(order.cargoo_name)
