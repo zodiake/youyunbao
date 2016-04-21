@@ -1,8 +1,10 @@
-alter table usr add column code char(4);
+ALTER TABLE usr
+  ADD COLUMN code CHAR(4);
 
-create table PROMOTION (
-	id int auto_increment not null,
-	name varchar(10),
-	code char(4),
-	primary key(id)
+CREATE TABLE PROMOTION (
+  id           INT AUTO_INCREMENT NOT NULL,
+  name         VARCHAR(10),
+  code         CHAR(4),
+  created_time TIMESTAMP,
+  PRIMARY KEY (id)
 );

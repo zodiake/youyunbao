@@ -613,16 +613,24 @@ router.put('/questions/:id', function (req, res, next) {
         });
 });
 /*------------------------end question-------------------------------*/
+
+/*---------------------------begin promotion-------------------------*/
+router.get('/promotions', function (req, res, next) {
+    
+});
+
+router.get('/promotions/:id', function (req, res, next) {
+    
+});
+
+/*------------------------end question-------------------------------*/
+
 function render(path) {
     router.get('/' + path + '.html', function (req, res) {
         res.render(path);
     });
 }
 
-/*---------------------------begin promotion-------------------------*/
-router.get('/promotions', function (req, res, next) {
-    
-});
 
 render('tabs');
 render('consignor');
