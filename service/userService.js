@@ -16,6 +16,12 @@ var service = {
     findByNameAndAuthority: function (name, authority) {
         return pool.query('select * from usr where name=? and authority=?', [name, authority]);
     },
+    findConsigneeByName: function (name) {
+        return pool.query('select * from usr where name=? and authority=? and activate=?', [name, 'ROLE_CONSIGNEE', 1]);
+    },
+    findConsignorByName: function (name) {
+        return pool.query('select * from usr where name=? and authority=? and activate=?', [name, 'ROLE_CONSIGNOR', 1]);
+    },
     findAll: function (page) {
         return pool.query('select * from usr limit ?,?', [page.page, page.size]);
     },

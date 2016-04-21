@@ -8,9 +8,10 @@ var stateType = require('../stateType');
 var jpush = require('../service/jpush');
 var orderState = require('../orderState');
 var webService = require('./webService');
+var userService = require('./userService');
 
 var connection = amqp.createConnection({
-    url: 'amqp://guest:guest@localhost:5672/app'
+    url: 'amqp://guest:guest@localhost:5672/test'
 });
 
 var sendSms = function (mobile, content, code) {
@@ -53,15 +54,22 @@ connection.on('ready', function () {
                         }
                     })
                     .then(function (order) {
-                        if (order != null)
-                            return orderService.save(order);
-                        else
-                            return null;
-                    })
-                    .then(function (d) {
-                        if (d != null) {
-                            sendSms(order.consignor, '［油运宝］您有一笔新的运单，等待发送', 898);
-                            jpush.pushConsignor(order.consignor, '您有一笔新的运单，等待发送。');
+                        if (order != null) {
+                            return userService
+                                .findConsigneeByName(order.consignee)
+                                .then(function (consignee) {
+                                    if (consignee.length > 0) {
+                                        return userService
+                                            .findConsignorByName(order.consignor)
+                                            .then(function (consignor) {
+                                                if (consignor.length > 0) {
+                                                    orderService.save(order);
+                                                    sendSms(order.consignor, '［油运宝］您有一笔新的运单，等待发送', 898);
+                                                    jpush.pushConsignor(order.consignor, '您有一笔新的运单，等待发送。');
+                                                }
+                                            });
+                                    }
+                                });
                         }
                     })
                     .fail(function (err) {
@@ -169,3 +177,4 @@ connection.on('ready', function () {
 });
 
 module.exports = connection;
+
