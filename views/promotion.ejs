@@ -1,0 +1,38 @@
+<div class="contentpanel">
+    <div class="panel-body">
+        <form class="form-inline" name="searchForm" ng-submit="search()">
+            <div class="form-group">
+                <input class="form-control" name="orderNumber" ng-model="option.orderNumber" placeholder="请输入您要查找的运单号"
+                       type="text"/>
+            </div>
+            <input class="btn btn-primary btn-xs" type="submit" value="搜索"/>
+            <a class="btn btn-primary btn-xs" ng-click="export()"
+               href="/export/orders?state={{option.state}}&beginTime={{option.beginTime}}&endTime={{option.endTIme}}&consignor={{option.consignor}}&orderNumber={{option.orderNumber}}"
+               ng-show="canDownload">导出</a>
+        </form>
+    </div>
+    <div>
+        总数：{{total}}
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>运单号</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in items">
+            <td>{{$index+1}}</td>
+            <td>{{item.name}}</td>
+            <td><a href="#/tabs/order/{{item.id}}" class="btn btn-primary btn-xs">查看</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="panel-footer">
+        <pagination total-items="total" items-per-page="15" max-size="7" ng-model="currentPage"
+                    ng-change="search()"></pagination>
+    </div>
+</div>
+

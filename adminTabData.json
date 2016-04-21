@@ -42,5 +42,9 @@
   {
     "heading": "密码修改",
     "route": "tabs.password"
+  },
+  {
+    "heading": "推广人员维护",
+    "route": "tabs.promotion"
   }
 ]

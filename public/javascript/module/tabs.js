@@ -3,7 +3,7 @@ var tabs = angular.module('Tabs', []);
 tabs.controller('ImportTabsController', ['$scope', function ($scope) {
     $scope.tabDate = [{
         heading: '运单import',
-        route: 'tabs.importOrder',
+        route: 'tabs.importOrder'
     }];
 }]);
 

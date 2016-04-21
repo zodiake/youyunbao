@@ -619,6 +619,11 @@ function render(path) {
     });
 }
 
+/*---------------------------begin promotion-------------------------*/
+router.get('/promotions', function (req, res, next) {
+    
+});
+
 render('tabs');
 render('consignor');
 render('order');
@@ -638,5 +643,6 @@ render('recommandDetail');
 render('question');
 render('cargooDetail');
 render('password');
+render('promotion');
 
 module.exports = router;

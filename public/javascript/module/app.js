@@ -20,7 +20,8 @@ var app = angular.module('app', [
     'socketModule',
     'upload',
     'Question',
-    'Password'
+    'Password',
+    'Promotion'
 ]);
 
 app.config(['$stateProvider',
@@ -148,6 +149,16 @@ app.config(['$stateProvider',
                 url: '/questions',
                 templateUrl: '/admin/questions.html',
                 controller: 'QuestionController'
+            })
+            .state('tabs.promotion', {
+                url: '/promotions',
+                templateUrl: '/admin/promotion.html',
+                controller: 'PromotionController'
+            })
+            .state('tabs.promotionDetail', {
+                url: '/promotions/:id',
+                templateUrl: '/admin/promotionDetail.html',
+                controller: 'PromotionDetailController'
             })
             .state('tabs.password', {
                 url: '/password',
