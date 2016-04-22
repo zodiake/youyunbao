@@ -1,0 +1,35 @@
+<div class="contentpanel">
+    <div class="panel-body order-d">
+        <form class="form-horizontal form-bordered" ng-submit="submit()" name="orderForm" novalidate>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">姓名</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" ng-model="item.name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">手机号</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" ng-model="item.mobile">
+                </div>
+                <label class="col-sm-1 control-label">岗位</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" ng-model="item.position">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">编号</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" ng-model="item.code">
+                </div>
+            </div>
+            <div class="ml100 mt20">
+                <button class="btn btn-primary" ng-click="save()">添加</button>
+                <a href="#/tabs/order" class="btn btn-default">返回</a>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="upload-modal">
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>

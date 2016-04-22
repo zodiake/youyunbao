@@ -160,6 +160,11 @@ app.config(['$stateProvider',
                 templateUrl: '/admin/promotionDetail.html',
                 controller: 'PromotionDetailController'
             })
+            .state('tabs.promotionCreate', {
+                url: '/promotionsForm',
+                templateUrl: '/admin/promotionCreate.html',
+                controller: 'PromotionCreateController'
+            })
             .state('tabs.password', {
                 url: '/password',
                 templateUrl: '/admin/password.html',

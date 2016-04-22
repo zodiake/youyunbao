@@ -15,6 +15,7 @@ var categoryService = require('../service/categoryService');
 var suggestionService = require('../service/suggestService');
 var scrollImageService = require('../service/scrollImageService');
 var questionService = require('../service/questionService');
+var promotionService = require('../service/promotionService');
 var jpush = require('../service/jpush');
 
 var userAuthority = require('../userAuthority');
@@ -616,11 +617,94 @@ router.put('/questions/:id', function (req, res, next) {
 
 /*---------------------------begin promotion-------------------------*/
 router.get('/promotions', function (req, res, next) {
-    
+    var type = getFactoryType(req);
+    if (type == '1000') {
+        q.all([promotionService
+            .findAll({type: type}, {page: req.query.page - 1 || 0, size: req.query.size}), promotionService.countAll()])
+            .then(function (result) {
+                res.json({
+                    status: 'success',
+                    total: result[1][0].countNum,
+                    data: result[0]
+                });
+            });
+    } else {
+        q.all([promotionService
+            .findByType({type: type}, {
+                page: req.query.page - 1 || 0,
+                size: req.query.size
+            }), promotionService.countByType({type: type})])
+            .then(function (result) {
+                res.json({
+                    status: 'success',
+                    total: result[1][0].countNum,
+                    data: result[0]
+                });
+            });
+
+    }
+});
+
+router.post('/promotions', function (req, res, next) {
+    var name = req.body.name,
+        mobile = req.body.mobile,
+        position = req.body.position,
+        code = req.body.code,
+        type = getFactoryType(req);
+
+    promotionService
+        .countByMobile(mobile)
+        .then(function (data) {
+            if (data[0].countSum > 0) {
+                var err = new Error('手机已存在');
+                throw err;
+            } else {
+                return promotionService.getCode();
+            }
+        })
+        .then(function (result) {
+            return promotionService.save({
+                name: name,
+                mobile: mobile,
+                position: position,
+                code: code,
+                type: type,
+                promotion_code: result
+            });
+        })
+        .then(function (result) {
+            res.json({
+                status: 'success',
+                id: result
+            });
+        })
+        .fail(function (err) {
+            next(err);
+        })
+        .catch(function (err) {
+            next(err);
+        });
 });
 
 router.get('/promotions/:id', function (req, res, next) {
-    
+    promotionService
+        .findOne(req.params.id)
+        .then(function (res) {
+            res.json({
+                status: 'success',
+                item: res[0]
+            })
+        })
+        .fail(function (err) {
+            next(err);
+        })
+        .catch(function (err) {
+            next(err);
+        });
+});
+
+router.put('/promotions/:id', function (req, res, next) {
+
 });
 
 /*------------------------end question-------------------------------*/
@@ -629,6 +713,29 @@ function render(path) {
     router.get('/' + path + '.html', function (req, res) {
         res.render(path);
     });
+}
+
+function getFactoryType(req) {
+    var type;
+    if (req.user.name === 'admin5681') {
+        type = '5681';
+    } else if (req.user.name === 'admin5591') {
+        type = '5591';
+    } else if (req.user.name === 'admin5641') {
+        type = '5641';
+    } else if (req.user.name === 'admin5001') {
+        type = '5001';
+    } else if (req.user.name === 'admin5002') {
+        type = '5002';
+    } else if (req.user.name === 'admin5003') {
+        type = '5003';
+    } else if (req.user.name === 'admin5004') {
+        type = '5004';
+    } else if (req.user.name === 'admin5005') {
+        type = '5005';
+    } else
+        type = '1000';
+    return type;
 }
 
 
@@ -652,5 +759,7 @@ render('question');
 render('cargooDetail');
 render('password');
 render('promotion');
+render('promotionCreate');
+render('promotionDetail');
 
 module.exports = router;
