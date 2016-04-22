@@ -96,18 +96,18 @@ router.get('/', function (req, res, next) {
                 return data;
             }
         }).then(function (data) {
-            res.json({
-                status: 'success',
-                data: data
-            });
-        }).fail(function (err) {
-            res.json({
-                status: 'fail',
-                message: err
-            });
-        }).catch(function (err) {
-            return next(err);
+        res.json({
+            status: 'success',
+            data: data
         });
+    }).fail(function (err) {
+        res.json({
+            status: 'fail',
+            message: err
+        });
+    }).catch(function (err) {
+        return next(err);
+    });
 });
 
 //getone
@@ -341,8 +341,7 @@ router.post('/:id/edit', extractOrder(), function (req, res, next) {
         })
         .then(function (result) {
             res.json({
-                status: 'success',
-                data: result.changedRows
+                status: 'success'
             });
         })
         .fail(function (err) {

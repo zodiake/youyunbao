@@ -8,6 +8,7 @@ var squel = require('squel');
 var q = require('q');
 var jpush = require('../service/jpush');
 var webService = require('./webService');
+var exchange = require('./publish');
 
 var service = {
     findOne: function (id) {
@@ -247,8 +248,17 @@ var service = {
             });
     },
     update: function (order, id, user) {
+        var self = this;
         var sql = 'update orders set ? where id=? and consignor=?';
-        return pool.query(sql, [order, id, user.name]);
+        return pool.query(sql, [order, id, user.name])
+            .then(function () {
+                console.log('enter');
+                self.findOne(id)
+                    .then(function (order) {
+                        console.log('enter amqp');
+                        exchange.publishOrderUpdate(order[0]);
+                    })
+            });
     },
     updateByOrderNumber: function (orderNumber, order) {
         var sql = 'update orders set ? where order_number=?';
