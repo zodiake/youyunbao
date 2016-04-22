@@ -70,7 +70,7 @@ promotions.controller('PromotionDetailController', [
             PromotionService
                 .findOne($stateParams.id)
                 .then(function (data) {
-                    $scope.item = data[0].data.data;
+                    $scope.item = data.data.item;
                 });
         }
 

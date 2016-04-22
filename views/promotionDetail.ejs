@@ -2,83 +2,38 @@
     <div class="panel-body order-d">
         <form class="form-horizontal form-bordered" ng-submit="submit()" name="orderForm" novalidate>
             <div class="form-group">
-                <label class="col-sm-1 control-label">运单号</label>
+                <label class="col-sm-1 control-label">姓名</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" ng-value="item.order_number" readonly>
+                    <input type="text" class="form-control" ng-model="item.name">
                 </div>
                 <label class="col-sm-1 control-label">生成日期</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" ng-value="item.created_time" readonly>
+                    <input type="text" class="form-control" ng-value="item.created_time">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-1 control-label">司机手机号</label>
+                <label class="col-sm-1 control-label">手机号</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" ng-value="item.consignee" readonly>
+                    <input type="text" class="form-control" ng-model="item.mobile">
                 </div>
-                <label class="col-sm-1 control-label">司机姓名</label>
+                <label class="col-sm-1 control-label">岗位</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" ng-value="item.consigneeName" readonly>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-1 control-label">车牌号</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" ng-value="item.license" readonly>
+                    <input type="text" class="form-control" ng-model="item.position">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-1 control-label">货主手机号</label>
+                <label class="col-sm-1 control-label">编号</label>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" ng-value="item.consignor" readonly>
+                    <input type="text" class="form-control" ng-model="item.code">
                 </div>
-                <label class="col-sm-1 control-label">公司名称</label>
+                <label class="col-sm-1 control-label">推广码</label>
                 <div class="col-sm-2">
-                    <input type="text" name="company_name" class="form-control" ng-model="item.company_name" ng-maxlength="20">
-                    <span ng-show="orderForm.origin.$error.maxlength" class="error">不要超过20个字</span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-1 control-label">货物分类</label>
-                <div class="col-sm-2">
-                    <select name="categoryName" ng-options="category.id as category.name for category in categories" ng-model="item.category" ng-change="changeState(item.category)" required>
-                        <option value="">--请选择--</option>
-                    </select>
-                </div>
-                <label class="col-sm-1 control-label">货物名称</label>
-                <div class="col-sm-2">
-                    <select name="cargooName" ng-options="name.id as name.name for name in cargooNames" ng-model="item.cargoo_name" required>
-                        <option value>--请选择--</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-1 control-label">始发地</label>
-                <div class="col-sm-2">
-                    <input type="text" name="origin" class="form-control" ng-model="item.origin" ng-maxlength="50">
-                    <span ng-show="orderForm.origin.$error.maxlength" class="error">不要超过50个字</span>
-                </div>
-                <label class="col-sm-1 control-label">目的地</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" ng-model="item.destination" ng-maxlength="50">
-                    <span ng-show="orderForm.origin.$error.maxlength" class="error">不要超过50个字</span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-1 control-label">到货时间</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" ng-model="item.etd">
-                </div>
-                <label class="col-sm-1 control-label">数量/吨</label>
-                <div class="col-sm-2">
-                    <input type="number" class="form-control" ng-model="item.quantity">
+                    <input type="text" class="form-control" ng-value="item.promotion_code" readonly>
                 </div>
             </div>
             <div class="ml100 mt20">
-                <button class="btn btn-primary" ng-click="update()">确认修改</button>
-                <button class="btn btn-default" ng-click="close()">撤销运单</button>
-                <a href="#/tabs/order" class="btn btn-default">返回</a>
-                <a href="#/tabs/order/{{item.id}}/map" class="btn btn-default">地图</a>
+                <button class="btn btn-primary" ng-click="update()">更新</button>
+                <a href="#/tabs/promotions" class="btn btn-default">返回</a>
             </div>
         </form>
     </div>
@@ -86,3 +41,4 @@
 <div class="upload-modal">
     <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 </div>
+

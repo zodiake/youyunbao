@@ -689,10 +689,10 @@ router.post('/promotions', function (req, res, next) {
 router.get('/promotions/:id', function (req, res, next) {
     promotionService
         .findOne(req.params.id)
-        .then(function (res) {
+        .then(function (result) {
             res.json({
                 status: 'success',
-                item: res[0]
+                item: result[0]
             })
         })
         .fail(function (err) {
@@ -704,7 +704,40 @@ router.get('/promotions/:id', function (req, res, next) {
 });
 
 router.put('/promotions/:id', function (req, res, next) {
+    var name = req.body.name,
+        mobile = req.body.mobile,
+        position = req.body.position,
+        code = req.body.code;
+    var id = req.params.id;
 
+    promotionService
+        .findByMobile(mobile)
+        .then(function (data) {
+            if (data[0].id != id) {
+                var err = new Error('手机已存在');
+                throw err;
+            } else {
+                return promotionService.update({
+                    name: name,
+                    mobile: mobile,
+                    position: position,
+                    code: code
+                }, id);
+            }
+        })
+        .then(function (result) {
+            console.log(result);
+            res.json({
+                status: 'success',
+                item: result[0]
+            });
+        })
+        .fail(function (err) {
+            next(err);
+        })
+        .catch(function (err) {
+            next(err);
+        });
 });
 
 /*------------------------end question-------------------------------*/

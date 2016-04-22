@@ -35,7 +35,7 @@ var service = {
         var sql = 'insert into promotion set ?';
         return pool.insert(sql, promotion);
     },
-    update: function (promotion) {
+    update: function (promotion,id) {
         var sql = 'update promotion set ? where id=?';
         return pool.query(sql, [promotion, id]);
     },
@@ -46,6 +46,10 @@ var service = {
     getCode: function () {
         var sql = 'insert into by_sequence values()';
         return pool.insert(sql, null);
+    },
+    findByMobile: function (mobile) {
+        var sql = 'select * from promotion where mobile=?';
+        return pool.query(sql, [mobile]);
     }
 };
 
