@@ -21,11 +21,15 @@ promotions.service('PromotionService', ['$http', function ($http) {
     this.save = function (promotion) {
         return $http.post('/admin/promotions', promotion);
     };
+
+    this.frozen = function (id) {
+        return $http.put('/admin/promotions/valid/' + id);
+    }
 }]);
 
 promotions.controller('PromotionController', ['$scope', 'PromotionService',
-    '$stateParams', '$window',
-    function ($scope, PromotionService, $stateParams, $window) {
+    '$stateParams', '$window', '$modal',
+    function ($scope, PromotionService, $stateParams, $window, $modal) {
         $scope.typeShow = $window.localStorage.userName !== 'admin';
         $scope.option = {};
         $scope.currentPage = 1;
@@ -59,6 +63,37 @@ promotions.controller('PromotionController', ['$scope', 'PromotionService',
                 size: $scope.size
             };
             init(option);
+        };
+
+        $scope.frozen = function (item) {
+            var modalInstance = $modal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'modal.html',
+                controller: 'PromotionModalCtrl',
+                resolve: {
+                    item: function () {
+                        return item;
+                    }
+                }
+            });
+        };
+    }]);
+
+promotions.controller('PromotionModalCtrl', ['item', 'PromotionService', '$scope', '$modalInstance',
+    function (item, PromotionService, $scope, $modalInstance) {
+        $scope.item = item;
+       
+        $scope.ok = function () {
+            PromotionService
+                .frozen(item.id)
+                .then(function () {
+                    $modalInstance.dismiss();
+                    item.valid = item.valid == 1 ? 0 : 1;
+                })
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss();
         };
     }]);
 

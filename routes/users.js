@@ -13,6 +13,7 @@ var crypto = require('crypto');
 var multer = require('multer');
 var path = require('path');
 var webService = require('../service/webService');
+var promotionService = require('../service/promotionService');
 
 var fileMulter = multer({
     dest: './uploads/',
@@ -128,41 +129,59 @@ router.post('/signup', function (req, res, next) {
         code = req.body.code,
         error;
 
-    if (!user_mobile[name] || captcha != user_mobile[name]) {
-        error = new Error('验证码错误');
-        return next(error);
-    }
+    /*
+     if (!user_mobile[name] || captcha != user_mobile[name]) {
+     error = new Error('验证码错误');
+     return next(error);
+     }
+     */
     if (type === undefined) {
         error = new Error('type can not be null');
         return next(error);
     }
 
-    userService.save({
-        name: name,
-        password: cryptoPwd(password),
-        authority: type,
-        code: code
-    }).then(function (result) {
-        return userDetailService
-            .save({
-                id: result,
-                created_Time: new Date()
-            })
-            .then(function (data) {
-                delete user_mobile[name];
-                var token = jwt.sign({
-                    id: result,
+    promotionService
+        .countByCode(code)
+        .then(function (res) {
+            if (res[0].countNum > 0)
+                return true;
+            return false;
+        })
+        .then(function (result) {
+            console.log(result);
+            if (result) {
+                return userService.save({
                     name: name,
-                    authority: type
-                }, config.key);
-                res.json({
-                    status: 'success',
-                    data: token
-                });
-            });
-    }).catch(function (err) {
-        return next(err);
-    });
+                    password: cryptoPwd(password),
+                    authority: type,
+                    code: code
+                }).then(function (result) {
+                    return userDetailService
+                        .save({
+                            id: result,
+                            created_Time: new Date()
+                        })
+                        .then(function (data) {
+                            delete user_mobile[name];
+                            var token = jwt.sign({
+                                id: result,
+                                name: name,
+                                authority: type
+                            }, config.key);
+                            res.json({
+                                status: 'success',
+                                data: token
+                            });
+                        });
+                })
+            } else {
+                error = new Error('邀请码不正确');
+                return next(error);
+            }
+        })
+        .catch(function (err) {
+            return next(err);
+        });
 });
 
 router.post('/admin/login', function (req, res, next) {

@@ -51,9 +51,17 @@ var service = {
         var sql = 'select * from promotion where mobile=?';
         return pool.query(sql, [mobile]);
     },
-    groupByType: function () {
-        var sql = 'select type,count(*) as countNum from promotion where type!=1000 group by type';
-        return pool.query(sql, []);
+    countByCode: function (code) {
+        var sql = 'select count(*) as countNum from promotion where promotion_code=? and valid=1';
+        return pool.query(sql, [code]);
+    },
+    frozenById: function (id) {
+        var sql = 'update promotion set valid=0 where id=?';
+        return pool.query(sql, [id]);
+    },
+    unFrozenById: function (id) {
+        var sql = 'update promotion set valid=1 where id=?';
+        return pool.query(sql, [id]);
     }
 };
 

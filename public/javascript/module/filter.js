@@ -28,6 +28,12 @@ filterModel.filter('activateFilter', function () {
     };
 });
 
+filterModel.filter('reverseActivateFilter', function () {
+    return function (state) {
+        return state == '1' ? '冻结' : '解冻';
+    };
+});
+
 filterModel.filter('stateButtonFilter', function () {
     return function (state) {
         return state == '1' ? '冻结' : '解冻';

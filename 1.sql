@@ -10,6 +10,7 @@ CREATE TABLE PROMOTION (
   created_time   TIMESTAMP,
   type           CHAR(4),
   promotion_code INT,
+  valid          SMALLINT,
   PRIMARY KEY (id)
 );
 CREATE TABLE by_sequence (

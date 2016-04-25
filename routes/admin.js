@@ -722,7 +722,8 @@ router.post('/promotions', function (req, res, next) {
                     position: position,
                     code: code,
                     type: type,
-                    promotion_code: result
+                    promotion_code: result,
+                    valid: 1
                 })
                 .then(function (re) {
                     res.json({
@@ -747,6 +748,29 @@ router.get('/promotions/:id', function (req, res, next) {
             res.json({
                 status: 'success',
                 item: result[0]
+            })
+        })
+        .fail(function (err) {
+            next(err);
+        })
+        .catch(function (err) {
+            next(err);
+        });
+});
+
+router.put('/promotions/valid/:id', function (req, res) {
+    var id = req.params.id;
+    promotionService
+        .findOne(id)
+        .then(function (pro) {
+            if (pro.length > 0 && pro[0].valid == 1) {
+                return promotionService.frozenById(id);
+            } else
+                return promotionService.unFrozenById(id);
+        })
+        .then(function () {
+            res.json({
+                status: 'success'
             })
         })
         .fail(function (err) {
