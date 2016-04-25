@@ -142,6 +142,9 @@ var service = {
         if (option.type) {
             sql.where("type='" + option.type + "'");
         }
+        if (option.license) {
+            sql.where("license='" + option.license + "'")
+        }
         return sql;
     },
     findByOption: function (page, option) {
@@ -159,6 +162,7 @@ var service = {
             .field('orders.quantity', 'quantity')
             .field('orders.created_time', 'created_time')
             .field('orders.current_state', 'current_state')
+            .field('orders.license', 'license')
             .order('created_time', false);
 
         var arr = [countSql.toString(), allSql.offset(offset).limit(limit).toString()];

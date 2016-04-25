@@ -16,6 +16,7 @@ var suggestionService = require('../service/suggestService');
 var scrollImageService = require('../service/scrollImageService');
 var questionService = require('../service/questionService');
 var promotionService = require('../service/promotionService');
+var vehicleService = require('../service/vehicleService');
 var jpush = require('../service/jpush');
 
 var userAuthority = require('../userAuthority');
@@ -200,7 +201,8 @@ router.get('/orders', function (req, res, next) {
         orderNumber = req.query.orderNumber,
         state = req.query.state,
         type = req.query.type,
-        batch = req.query.batch;
+        batch = req.query.batch,
+        license = req.query.license;
 
     if (req.user.name === 'admin5681') {
         type = '5681';
@@ -226,7 +228,8 @@ router.get('/orders', function (req, res, next) {
         endTime: endTime,
         order_number: orderNumber,
         batch: batch,
-        type: type
+        type: type,
+        license: license
     };
 
     if (state !== undefined && orderState[state] !== undefined) {
@@ -239,13 +242,28 @@ router.get('/orders', function (req, res, next) {
     orderService
         .findByOption(pageable, option)
         .then(function (result) {
-            res.json({
-                status: 'success',
-                data: {
-                    total: result[0][0].countNum,
-                    data: result[1]
-                }
-            });
+            if (option.license != null)
+                return vehicleService
+                    .countByLicense(option.license)
+                    .then(function (r) {
+                        res.json({
+                            status: 'success',
+                            data: {
+                                licenseNum: r[0].countNum,
+                                total: result[0][0].countNum,
+                                data: result[1]
+                            }
+                        });
+                    });
+            else
+                res.json({
+                    status: 'success',
+                    data: {
+                        total: result[0][0].countNum,
+                        data: result[1]
+                    }
+                });
+
         })
         .catch(function (err) {
             return next(err);

@@ -54,6 +54,7 @@ order.controller('OrderController', ['$scope', 'OrderService',
                     if (data.data.status === 'success') {
                         $scope.items = data.data.data.data;
                         $scope.total = data.data.data.total;
+                        $scope.licenseNum = data.data.data.licenseNum;
                     } else {
                         alert('system error');
                     }
@@ -95,7 +96,8 @@ order.controller('OrderController', ['$scope', 'OrderService',
                 orderNumber: $scope.option.orderNumber,
                 consignor: $scope.option.consignor,
                 batch: $scope.option.batch,
-                type: $scope.option.type
+                type: $scope.option.type,
+                license: $scope.option.license
             };
             $window.localStorage.orderList = JSON.stringify(option);
             init(option);

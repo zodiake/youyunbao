@@ -33,12 +33,15 @@
                     <option value="batch">批量导入</option>
                 </select>
             </div>
+            <div class="form-group" ng-show="typeShow">
+                <input class="form-control" name="type" ng-model="option.license" placeholder="车牌" type="text" />
+            </div>
             <input class="btn btn-primary btn-xs" type="submit" value="搜索" />
             <a class="btn btn-primary btn-xs" ng-click="export()" href="/export/orders?state={{option.state}}&beginTime={{option.beginTime}}&endTime={{option.endTIme}}&consignor={{option.consignor}}&orderNumber={{option.orderNumber}}" ng-show="canDownload">导出</a>
         </form>
     </div>
     <div>
-        总数：{{total}}
+        总数：{{total}},司机数：{{licenseNum}}
     </div>
     <table class="table table-bordered">
         <thead>
@@ -47,6 +50,7 @@
                 <th>运单号</th>
                 <th>司机手机号</th>
                 <th>司机姓名</th>
+                <th>车牌号</th>
                 <th>货主手机</th>
                 <th>公司名称</th>
                 <th>货物名称</th>
@@ -62,6 +66,7 @@
                 <td>{{item.order_number}}</td>
                 <td>{{item.consignee}}</td>
                 <td>{{item.consignee_name}}</td>
+                <td>{{item.license}}</td>
                 <td>{{item.consignor}}</td>
                 <td>{{item.company_name}}</td>
                 <td>{{item.cargoo_name}}</td>
