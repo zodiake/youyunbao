@@ -69,11 +69,15 @@ promotions.controller('PromotionDetailController', [
     '$window',
     function ($scope, $stateParams, PromotionService, $q, $window) {
         $scope.typeShow = $window.localStorage.userName !== 'admin';
+        $scope.alerts = [];
         function init() {
             PromotionService
                 .findOne($stateParams.id)
                 .then(function (data) {
                     $scope.item = data.data.item;
+                })
+                .catch(function () {
+
                 });
         }
 
@@ -82,12 +86,23 @@ promotions.controller('PromotionDetailController', [
         $scope.update = function () {
             PromotionService
                 .update($scope.item)
-                .then(function () {
+                .then(function (res) {
+                    if (res.data.status = 'success') {
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: '更新成功'
+                        });
+                    } else
+                        alert('system error');
 
                 })
                 .catch(function () {
 
                 })
+        };
+
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
         };
     }]);
 
