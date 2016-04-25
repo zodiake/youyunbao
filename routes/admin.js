@@ -333,7 +333,8 @@ router.get('/aggregate/orders', function (req, res) {
                 'transport': result[5][0].countNum,
                 'arrive': result[6][0].countNum,
                 'appraise': result[7][0].countNum,
-                'refuse': result[8][0].countNum
+                'refuse': result[8][0].countNum,
+                'promot': result[9]
             });
         });
 });
@@ -640,11 +641,25 @@ router.get('/promotions', function (req, res, next) {
         q.all([promotionService
             .findAll({type: type}, {page: req.query.page - 1 || 0, size: req.query.size}), promotionService.countAll()])
             .then(function (result) {
-                res.json({
-                    status: 'success',
-                    total: result[1][0].countNum,
-                    data: result[0]
+                var codes = result[0].map(function (r) {
+                    return r.code;
                 });
+                userService
+                    .groupByCode(codes)
+                    .then(function (r) {
+                        r.forEach(function (r1) {
+                            result[0].forEach(function (r2) {
+                                if (r1.code == r2.code) {
+                                    r2.agg = r1.agg;
+                                }
+                            });
+                        });
+                        res.json({
+                            status: 'success',
+                            total: result[1][0].countNum,
+                            data: result[0]
+                        });
+                    });
             });
     } else {
         q.all([promotionService
@@ -653,11 +668,25 @@ router.get('/promotions', function (req, res, next) {
                 size: req.query.size
             }), promotionService.countByType({type: type})])
             .then(function (result) {
-                res.json({
-                    status: 'success',
-                    total: result[1][0].countNum,
-                    data: result[0]
+                var codes = result[0].map(function (r) {
+                    return r.code;
                 });
+                userService
+                    .groupByCode(codes)
+                    .then(function (r) {
+                        r.forEach(function (r1) {
+                            result[0].forEach(function (r2) {
+                                if (r1.code == r2.code) {
+                                    r2.agg = r1.agg;
+                                }
+                            });
+                        });
+                        res.json({
+                            status: 'success',
+                            total: result[1][0].countNum,
+                            data: result[0]
+                        });
+                    });
             });
 
     }

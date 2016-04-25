@@ -35,7 +35,7 @@ var service = {
         var sql = 'insert into promotion set ?';
         return pool.insert(sql, promotion);
     },
-    update: function (promotion,id) {
+    update: function (promotion, id) {
         var sql = 'update promotion set ? where id=?';
         return pool.query(sql, [promotion, id]);
     },
@@ -50,6 +50,10 @@ var service = {
     findByMobile: function (mobile) {
         var sql = 'select * from promotion where mobile=?';
         return pool.query(sql, [mobile]);
+    },
+    groupByType: function () {
+        var sql = 'select type,count(*) as countNum from promotion where type!=1000 group by type';
+        return pool.query(sql, []);
     }
 };
 

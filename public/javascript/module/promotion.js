@@ -26,6 +26,7 @@ promotions.service('PromotionService', ['$http', function ($http) {
 promotions.controller('PromotionController', ['$scope', 'PromotionService',
     '$stateParams', '$window',
     function ($scope, PromotionService, $stateParams, $window) {
+        $scope.typeShow = $window.localStorage.userName !== 'admin';
         $scope.option = {};
         $scope.currentPage = 1;
         $scope.size = 15;
@@ -65,7 +66,9 @@ promotions.controller('PromotionDetailController', [
     '$stateParams',
     'PromotionService',
     '$q',
-    function ($scope, $stateParams, PromotionService, $q) {
+    '$window',
+    function ($scope, $stateParams, PromotionService, $q,$window) {
+        $scope.typeShow = $window.localStorage.userName !== 'admin';
         function init() {
             PromotionService
                 .findOne($stateParams.id)
@@ -91,6 +94,7 @@ promotions.controller('PromotionDetailController', [
 promotions.controller('PromotionCreateController', [
     '$scope',
     'PromotionService',
+    '$window',
     function ($scope, PromotionService) {
         $scope.alerts = [];
         $scope.save = function () {

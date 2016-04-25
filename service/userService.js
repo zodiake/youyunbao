@@ -85,6 +85,10 @@ var service = {
         var sql = 'update usr set activate=? where id=?';
         return pool.query(sql, [state, userId]);
     },
+    groupByCode: function (code) {
+        var sql = 'select code,count(*) as agg from usr  where code is not null and code in(?) group by code';
+        return pool.query(sql, [code]);
+    },
     aggregate: function () {
         var date = new Date();
         var today = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
