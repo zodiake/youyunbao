@@ -210,7 +210,7 @@ var service = {
         var sqlArrive = "select count(*) as countNum from orders where current_state='" + orderState.arrive + "'";
         var sqlAppraise = "select count(*) as countNum from orders where current_state='" + orderState.appraise + "'";
         var sqlRefuse = "select count(*) as countNum from orders where current_state='" + orderState.refuse + "'";
-        var sqlPromotion = 'select type,count(*) as countNum from promotion where type!=1000 group by type';
+        var sqlPromotion = 'select type,count(*) as countNum,authority from promotion join usr where promotion.promotion_code=usr.code group by type,authority';
         var array = [sqlCountAll, sqlApp, sqlOut, sqlDispatch, sqlConfirm, sqlTransport, sqlArrive, sqlAppraise, sqlRefuse, sqlPromotion];
         return pool.query(array.join(";"), []);
     },

@@ -86,7 +86,7 @@ var service = {
         return pool.query(sql, [state, userId]);
     },
     groupByCode: function (code) {
-        var sql = 'select code,count(*) as agg from usr  where code is not null and code in(?) group by code';
+        var sql = "select code,count(*) as agg,authority from usr where code is not null and code in(?) and authority in('ROLE_CONSIGNEE','ROLE_CONSIGNOR') group by code,authority";
         return pool.query(sql, [code]);
     },
     aggregate: function () {

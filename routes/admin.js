@@ -650,7 +650,10 @@ router.get('/promotions', function (req, res, next) {
                         r.forEach(function (r1) {
                             result[0].forEach(function (r2) {
                                 if (r1.code == r2.code) {
-                                    r2.agg = r1.agg;
+                                    if (r1.authority == 'ROLE_CONSIGNEE')
+                                        r2.agg_consignee = r1.agg;
+                                    if (r1.authority == 'ROLE_CONSIGNOR')
+                                        r2.agg_consignor = r1.agg;
                                 }
                             });
                         });
@@ -677,7 +680,10 @@ router.get('/promotions', function (req, res, next) {
                         r.forEach(function (r1) {
                             result[0].forEach(function (r2) {
                                 if (r1.code == r2.code) {
-                                    r2.agg = r1.agg;
+                                    if (r1.authority == 'ROLE_CONSIGNEE')
+                                        r2.agg_consignee = r1.agg;
+                                    if (r1.authority == 'ROLE_CONSIGNOR')
+                                        r2.agg_consignor = r1.agg;
                                 }
                             });
                         });

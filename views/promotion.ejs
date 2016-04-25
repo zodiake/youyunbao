@@ -8,6 +8,8 @@
             <input class="btn btn-primary btn-xs" type="submit" value="搜索"/>
             <a class="btn btn-primary btn-xs"
                href="#/tabs/promotionsForm" ng-show="typeShow">添加</a>
+            <a class="btn btn-primary btn-xs"
+               href="/export/promotion?type={{usr}}">导出</a>
         </form>
     </div>
     <div>
@@ -18,7 +20,8 @@
         <tr>
             <th>序号</th>
             <th>姓名</th>
-            <th>推广数</th>
+            <th>司机推广数</th>
+            <th>货主推广数</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -26,7 +29,8 @@
         <tr ng-repeat="item in items">
             <td>{{$index+1}}</td>
             <td>{{item.name}}</td>
-            <td>{{item.agg}}</td>
+            <td>{{item.agg_consignee}}</td>
+            <td>{{item.agg_consignor}}</td>
             <td><a href="#/tabs/promotions/{{item.id}}" class="btn btn-primary btn-xs">查看</a></td>
         </tr>
         </tbody>

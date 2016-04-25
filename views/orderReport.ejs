@@ -50,6 +50,7 @@
             <dl class="col-md-2" ng-repeat="i in item.promot">
                 <dt>{{i.type}}</dt>
                 <dd>{{i.countNum}}</dd>
+                <dd>{{i.authority|orderFilter}}</dd>
             </dl>
             <!--
             <dl class="col-md-2">

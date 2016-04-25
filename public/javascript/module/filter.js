@@ -33,3 +33,9 @@ filterModel.filter('stateButtonFilter', function () {
         return state == '1' ? '冻结' : '解冻';
     };
 });
+
+filterModel.filter('orderFilter', function () {
+    return function (s) {
+        return s == 'ROLE_CONSIGNEE' ? '司机数' : '货主数';
+    }
+});

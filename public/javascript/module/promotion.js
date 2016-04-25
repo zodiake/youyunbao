@@ -30,6 +30,7 @@ promotions.controller('PromotionController', ['$scope', 'PromotionService',
         $scope.option = {};
         $scope.currentPage = 1;
         $scope.size = 15;
+        $scope.usr = $window.localStorage.userName;
 
         function init(option) {
             PromotionService

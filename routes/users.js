@@ -137,8 +137,6 @@ router.post('/signup', function (req, res, next) {
         return next(error);
     }
 
-
-
     userService.save({
         name: name,
         password: cryptoPwd(password),
