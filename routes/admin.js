@@ -711,19 +711,20 @@ router.post('/promotions', function (req, res, next) {
         })
         .then(function (result) {
             return promotionService.save({
-                name: name,
-                mobile: mobile,
-                position: position,
-                code: code,
-                type: type,
-                promotion_code: result
-            });
-        })
-        .then(function (result) {
-            res.json({
-                status: 'success',
-                id: result
-            });
+                    name: name,
+                    mobile: mobile,
+                    position: position,
+                    code: code,
+                    type: type,
+                    promotion_code: result
+                })
+                .then(function (re) {
+                    res.json({
+                        status: 'success',
+                        id: re,
+                        code: result
+                    });
+                });
         })
         .fail(function (err) {
             next(err);
@@ -760,7 +761,7 @@ router.put('/promotions/:id', function (req, res, next) {
     promotionService
         .findByMobile(mobile)
         .then(function (data) {
-            if (data[0].id != id) {
+            if (data.length > 0 && data[0].id != id) {
                 var err = new Error('手机已存在');
                 throw err;
             } else {

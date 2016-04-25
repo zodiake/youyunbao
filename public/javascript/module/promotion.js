@@ -67,7 +67,7 @@ promotions.controller('PromotionDetailController', [
     'PromotionService',
     '$q',
     '$window',
-    function ($scope, $stateParams, PromotionService, $q,$window) {
+    function ($scope, $stateParams, PromotionService, $q, $window) {
         $scope.typeShow = $window.localStorage.userName !== 'admin';
         function init() {
             PromotionService
@@ -97,38 +97,42 @@ promotions.controller('PromotionCreateController', [
     '$window',
     function ($scope, PromotionService) {
         $scope.alerts = [];
+        $scope.item = {};
         $scope.save = function () {
-            if ($scope.item.id) {
-                PromotionService
-                    .update($scope.item)
-                    .then(function (res) {
-                        if (res.data.status = 'success') {
-                            $scope.alerts.push({
-                                type: 'success',
-                                msg: '更新成功'
-                            });
-                            $scope.item.id = res.data.id;
-                        }
-                        else
-                            alert('system error');
-                    })
-                    .catch(function () {
+            if ($scope.orderForm.$valid) {
+                if ($scope.item.id) {
+                    PromotionService
+                        .update($scope.item)
+                        .then(function (res) {
+                            if (res.data.status = 'success') {
+                                $scope.alerts.push({
+                                    type: 'success',
+                                    msg: '更新成功'
+                                });
+                                $scope.item.id = res.data.id;
+                            }
+                            else
+                                alert('system error');
+                        })
+                        .catch(function () {
 
-                    });
-            } else {
-                PromotionService
-                    .save($scope.item)
-                    .then(function (res) {
-                        if (res.data.status = 'success') {
-                            $scope.alerts.push({
-                                type: 'success',
-                                msg: '添加成功'
-                            });
-                            $scope.item.id = res.data.id;
-                        }
-                        else
-                            alert('system error');
-                    });
+                        });
+                } else {
+                    PromotionService
+                        .save($scope.item)
+                        .then(function (res) {
+                            if (res.data.status = 'success') {
+                                $scope.alerts.push({
+                                    type: 'success',
+                                    msg: '添加成功'
+                                });
+                                $scope.item.id = res.data.id;
+                                $scope.item.promotion_code = res.data.code;
+                            }
+                            else
+                                alert('system error');
+                        });
+                }
             }
         };
 
