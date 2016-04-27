@@ -42,7 +42,7 @@ router.get('/orders', function (req, res) {
 
 router.get('/promotion', function (req, res) {
     var stringfier = csv.stringify({
-        columns: ['编号', '姓名', '岗位', '手机号', '推广码'],
+        columns: ['编号', '姓名', '岗位', '手机', '推广码'],
         header: true
     });
     var sql;
@@ -54,6 +54,7 @@ router.get('/promotion', function (req, res) {
         sql = "select name,code,mobile,position,promotion_code from promotion where type='" + type + "'";
 
     var transformer = csv.transform(function (data) {
+        console.log(data.mobile);
         return {
             编号: data.code,
             姓名: data.name,

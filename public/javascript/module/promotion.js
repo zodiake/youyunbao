@@ -120,21 +120,22 @@ promotions.controller('PromotionDetailController', [
         init();
 
         $scope.update = function () {
-            PromotionService
-                .update($scope.item)
-                .then(function (res) {
-                    if (res.data.status = 'success') {
-                        $scope.alerts.push({
-                            type: 'success',
-                            msg: '更新成功'
-                        });
-                    } else
-                        alert('system error');
+            if ($scope.orderForm.$valid) {
+                PromotionService
+                    .update($scope.item)
+                    .then(function (res) {
+                        if (res.data.status = 'success') {
+                            $scope.alerts.push({
+                                type: 'success',
+                                msg: '更新成功'
+                            });
+                        } else
+                            alert('system error');
+                    })
+                    .catch(function () {
 
-                })
-                .catch(function () {
-
-                })
+                    })
+            }
         };
 
         $scope.closeAlert = function (index) {
